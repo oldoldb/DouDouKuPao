@@ -6,4 +6,11 @@
     <string name="personalActivity_name">PersonalActivity</string>
     <string name="personalActivity_addInfo">录入数据</string>
 	<string name="personalActivity_viewHistory">查看历史</string>
+	<string name="infoEntryActivity_name">InfoEntryActivity</string>
+	<string name="historyActivity_name">HistoryActivity</string>
+	<string name="infoEntry_date">记步日期</string>
+	<string name="infoEntry_counter">步数</string>
+	<string name="infoEntry_button_ok">确认</string>
+	<string name="personId_father">father</string>
+	<string name="personId_mother">mother</string>
 </resources>

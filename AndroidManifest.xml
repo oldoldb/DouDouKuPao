@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
@@ -24,6 +24,14 @@
         <activity 
             android:name="com.oldoldb.doudoukupao.PersonalActivity"
             android:label="@string/personalActivity_name" >         
+        </activity>
+        <activity 
+            android:name="com.oldoldb.doudoukupao.InfoEntryActivity"
+            android:label="@string/infoEntryActivity_name" >         
+        </activity>
+        <activity 
+            android:name="com.oldoldb.doudoukupao.HistoryActivity"
+            android:label="@string/historyActivity_name" >         
         </activity>
     </application>
 

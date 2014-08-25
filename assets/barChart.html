@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<script type="text/javascript" src="ichart.1.2.min.js"></script>
+		<script type="text/javascript">
+			var chart;
+			$(function(){
+				var data = [
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	},
+				        	{
+				        		name : '2014-08-19',
+				        		value:15,
+				        		color:'#1f7e92'
+				        	}	
+				       ];
+			       
+				chart = new iChart.Column2D({
+						render : 'canvasDiv',
+						data: data,
+						title : '最近一周锻炼情况',
+						width : 800,
+						height : 400,
+					});
+				
+				chart.draw();
+			});
+			function setContentInfo(data){
+				var jsonObjects = eval(data);
+				chart.push("data",jsonObjects);
+				chart.setUp();
+				chart.draw();
+			}
+		</script>
+		</head>
+		<body>
+			<div id='canvasDiv'></div>
+</body>
+</html>
