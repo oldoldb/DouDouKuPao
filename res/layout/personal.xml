@@ -47,6 +47,7 @@
             	android:layout_gravity="center_horizontal"
            		android:layout_height="wrap_content"
             	android:textColor="#fff"
+            	android:textSize="24sp"
             	android:text="@string/personalActivity_addInfo"/>
     	</LinearLayout>
     	<LinearLayout 
@@ -66,6 +67,7 @@
             	android:layout_gravity="center_horizontal"
             	android:layout_height="wrap_content"
             	android:textColor="#fff"
+            	android:textSize="24sp"
             	android:text="@string/personalActivity_viewHistory"/>	
     	</LinearLayout> 	
     </LinearLayout>

@@ -6,11 +6,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 
@@ -69,7 +70,7 @@ public class InfoEntryActivity extends Activity {
 		numberPicker4.setMinValue(0);
 		numberPicker4.setMaxValue(9);
 		numberPicker4.setOnValueChangedListener(mOnValueChangeListener);
-		Button okButton = (Button)findViewById(R.id.button_ok);
+		ImageButton okButton = (ImageButton)findViewById(R.id.button_ok);
 		okButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
