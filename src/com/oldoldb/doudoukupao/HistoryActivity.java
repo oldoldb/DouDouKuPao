@@ -1,11 +1,10 @@
 package com.oldoldb.doudoukupao;
 
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Button;
-
 import com.example.doudoukupao.R;
 
 public class HistoryActivity extends Activity {
@@ -27,6 +25,7 @@ public class HistoryActivity extends Activity {
 		"#648bbf","#e3b314","#a38989"};
 	String mPersonId;
 	 
+	@SuppressLint("SetJavaScriptEnabled") 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -71,7 +70,7 @@ public class HistoryActivity extends Activity {
 			{
 				JSONObject jsonObject = new JSONObject();
 				ExerciseInfo exerciseInfo = exerciseInfos.get(i);
-				String str = exerciseInfo.getYear() + "-" + exerciseInfo.getMonthOfYear() + "-" + exerciseInfo.getDayOfMonth();
+				String str = exerciseInfo.getMonthOfYear() + "-" + exerciseInfo.getDayOfMonth();
 				jsonObject.put("name", str);
 				jsonObject.put("value", exerciseInfo.getCount());
 				jsonObject.put("color", MCOLOR_STRINGS[i-start]);

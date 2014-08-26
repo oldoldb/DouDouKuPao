@@ -2,7 +2,6 @@ package com.oldoldb.doudoukupao;
 
 import java.util.Calendar;
 
-import com.example.doudoukupao.R;
 
 public class ExerciseInfo {
 	private int id;
