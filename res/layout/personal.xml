@@ -2,21 +2,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <Button 
-        android:id="@+id/button_addInfo"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/personalActivity_addInfo"/>
-    
-    <Button
-        android:id="@+id/button_viewHistory"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/personalActivity_viewHistory"/>
+    android:orientation="vertical"
+    android:background="#27A5F9" >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#484E61" >
+        
+        <Button 
+            android:id="@+id/button_back"
+         	android:layout_width="30dp"
+         	android:layout_height="30dp"
+         	android:layout_centerVertical="true"
+         	android:layout_marginLeft="10dp"
+         	android:background="@drawable/home" />
+        
+        <TextView 
+            android:text="@string/personalActivitiy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:textSize="24sp" />     
+    </RelativeLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="200dp">
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+    		<ImageButton 
+        		android:id="@+id/button_addInfo"
+        		android:background="#00000000"
+        		android:layout_width="wrap_content"
+        		android:layout_gravity="center_horizontal"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/add_info"/>
+    		<TextView 
+            	android:layout_width="wrap_content"
+            	android:layout_gravity="center_horizontal"
+           		android:layout_height="wrap_content"
+            	android:textColor="#fff"
+            	android:text="@string/personalActivity_addInfo"/>
+    	</LinearLayout>
+    	<LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+    		<ImageButton
+       			android:id="@+id/button_viewHistory"
+        		android:background="#00000000"
+        		android:layout_width="wrap_content"
+        		android:layout_gravity="center_horizontal"
+        		android:layout_height="wrap_content"
+        		android:src="@drawable/view_history"/>
+    		<TextView 
+            	android:layout_width="wrap_content"
+            	android:layout_gravity="center_horizontal"
+            	android:layout_height="wrap_content"
+            	android:textColor="#fff"
+            	android:text="@string/personalActivity_viewHistory"/>	
+    	</LinearLayout> 	
+    </LinearLayout>
 </LinearLayout>

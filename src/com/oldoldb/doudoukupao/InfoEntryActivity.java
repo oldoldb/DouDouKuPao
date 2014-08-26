@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,13 +19,14 @@ import com.example.doudoukupao.R;
 public class InfoEntryActivity extends Activity {
 	
 	private String mPersonId;
-	private int mCounter[] = new int[6];
+	private int mCounter[] = new int[5];
 	ExerciseInfo mExerciseInfo = new ExerciseInfo();
 	private DouDouKuPaoDB mDouDouKuPaoDB;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.info_entry);
 		mPersonId = getIntent().getStringExtra("personId");
 		System.out.println("mPersonId in InfoEntry : " + mPersonId);
@@ -47,7 +49,6 @@ public class InfoEntryActivity extends Activity {
 			}
 		});
 		
-		NumberPicker numberPicker5 = (NumberPicker)findViewById(R.id.numberPicker_counter5);
 		NumberPicker numberPicker4 = (NumberPicker)findViewById(R.id.numberPicker_counter4);
 		NumberPicker numberPicker3 = (NumberPicker)findViewById(R.id.numberPicker_counter3);
 		NumberPicker numberPicker2 = (NumberPicker)findViewById(R.id.numberPicker_counter2);
@@ -68,9 +69,6 @@ public class InfoEntryActivity extends Activity {
 		numberPicker4.setMinValue(0);
 		numberPicker4.setMaxValue(9);
 		numberPicker4.setOnValueChangedListener(mOnValueChangeListener);
-		numberPicker5.setMinValue(0);
-		numberPicker5.setMaxValue(9);
-		numberPicker5.setOnValueChangedListener(mOnValueChangeListener);
 		Button okButton = (Button)findViewById(R.id.button_ok);
 		okButton.setOnClickListener(new OnClickListener() {
 			
@@ -78,7 +76,7 @@ public class InfoEntryActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				int sum = 0;
-				for(int i=0;i<6;i++)
+				for(int i=0;i<5;i++)
 				{
 					sum = sum * 10 + mCounter[i];
 				}
@@ -88,6 +86,18 @@ public class InfoEntryActivity extends Activity {
 				intent.putExtra("personId", mPersonId);
 				System.out.println(mExerciseInfo.toString());
 				startActivity(intent);
+			}
+		});
+		Button backButton = (Button)findViewById(R.id.button_back);
+		backButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(InfoEntryActivity.this, PersonalActivity.class);
+				intent.putExtra("personId", mPersonId);
+				startActivity(intent);
+				finish();
 			}
 		});
 	}

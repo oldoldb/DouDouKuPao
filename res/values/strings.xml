@@ -13,4 +13,8 @@
 	<string name="infoEntry_button_ok">确认</string>
 	<string name="personId_father">father</string>
 	<string name="personId_mother">mother</string>
+	<string name="personalActivitiy_title">选择选项</string>
+	<string name="infoEntryActivity_title">录入数据</string>
+	<string name="historyActivity_title">查看历史记录</string>
+	<string name="douDouKuPaoActivity_title">豆豆酷跑</string>
 </resources>
