@@ -29,7 +29,6 @@
         android:id="@+id/webView_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#27A5F9"
-        android:/>
+        android:background="#27A5F9"/>
 
 </LinearLayout>
