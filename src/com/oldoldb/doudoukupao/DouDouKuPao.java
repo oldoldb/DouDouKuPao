@@ -1,11 +1,15 @@
 package com.oldoldb.doudoukupao;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.doudoukupao.R;
 
@@ -22,6 +26,39 @@ public class DouDouKuPao extends Activity {
 		ImageButton motherButton = (ImageButton) findViewById(R.id.button_mother);
 		fatherButton.setOnClickListener(mOnClickListener);
 		motherButton.setOnClickListener(mOnClickListener);
+		DouDouKuPaoDB douDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
+		TextView fatherCounterTextView = (TextView)findViewById(R.id.text_best_counter_father);
+		TextView motherCounterTextView = (TextView)findViewById(R.id.text_best_counter_mother);
+		TextView fatherDateTextView = (TextView)findViewById(R.id.text_best_date_father);
+		TextView motherDataTextView = (TextView)findViewById(R.id.text_best_date_mother);
+		Pair<String, Integer> topDataOfFatherPair = douDouKuPaoDB.getRowWithMaxValue("father");
+		Pair<String, Integer> topDataOfMotherPair = douDouKuPaoDB.getRowWithMaxValue("mother");
+		if(topDataOfFatherPair != null)
+		{
+			fatherCounterTextView.setText(topDataOfFatherPair.second.toString());
+			fatherDateTextView.setText(topDataOfFatherPair.first);
+		}
+		else
+		{
+			Calendar calendar = Calendar.getInstance();
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH) + 1;
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			fatherDateTextView.setText(year + "-" + month + "-" + day);
+		}
+		if(topDataOfMotherPair != null)
+		{
+			motherCounterTextView.setText(topDataOfMotherPair.second.toString());
+			motherDataTextView.setText(topDataOfMotherPair.first);
+		}
+		else 
+		{
+			Calendar calendar = Calendar.getInstance();
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH) + 1;
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			motherDataTextView.setText(year + "-" + month + "-" + day);
+		}
 	}
 	
 	View.OnClickListener mOnClickListener = new View.OnClickListener() {

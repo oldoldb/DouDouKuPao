@@ -17,4 +17,7 @@
 	<string name="infoEntryActivity_title">录入数据</string>
 	<string name="historyActivity_title">查看历史记录</string>
 	<string name="douDouKuPaoActivity_title">豆豆酷跑</string>
+	<string name="main_best_counter">最好成绩</string>
+	<string name="main_best_date">纪录时间</string>
+	<string name="main_default_counter">0步</string>
 </resources>

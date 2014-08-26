@@ -63,5 +63,73 @@
             	android:text="@string/main_button_mother"/>	
     	</LinearLayout> 	
     </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    	
+        <TextView
+        	android:id="@+id/text_best_counter_father" 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:text="@string/main_default_counter"
+            android:textColor="#fff"
+            android:textSize="24sp" />
+        <TextView
+            android:text="@string/main_best_counter"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="24sp" />
+        <TextView
+        	android:id="@+id/text_best_counter_mother" 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="24sp" />	
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    	
+        <TextView
+        	android:id="@+id/text_best_date_father" 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="@string/main_default_counter"
+            android:textSize="24sp" />
+        <TextView
+            android:text="@string/main_best_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="24sp" />
+        <TextView
+        	android:id="@+id/text_best_date_mother" 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="24sp" />	
+    </LinearLayout>
 
 </LinearLayout>
