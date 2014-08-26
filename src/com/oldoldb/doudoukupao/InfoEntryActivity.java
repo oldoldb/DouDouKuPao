@@ -26,7 +26,8 @@ public class InfoEntryActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.info_entry);
-		mPersonId = getIntent().getIntExtra("personId", R.id.button_father) == R.id.button_father?"father":"mother";
+		mPersonId = getIntent().getStringExtra("personId");
+		System.out.println("mPersonId in InfoEntry : " + mPersonId);
 		mExerciseInfo.setPersonId(mPersonId);
 		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
 		DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker_date);
@@ -85,6 +86,7 @@ public class InfoEntryActivity extends Activity {
 				mDouDouKuPaoDB.saveExerciseInfo(mExerciseInfo);
 				Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
 				intent.putExtra("personId", mPersonId);
+				System.out.println(mExerciseInfo.toString());
 				startActivity(intent);
 			}
 		});

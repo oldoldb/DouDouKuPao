@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -43,10 +45,11 @@ public class DouDouKuPaoDB {
 			db.insert("CounterInfo", null, values);
 		}
 	}
-
-	public List<ExerciseInfo> loadExerciseInfos(){
+	public List<ExerciseInfo> loadExerciseInfos(String personId){
 		List<ExerciseInfo> list = new ArrayList<ExerciseInfo>();
-		Cursor cursor = db.query("CounterInfo", null, null, null, null, null, null);
+		System.out.println("personid : " + personId);
+		Cursor cursor = db.query("CounterInfo", null, "personId = ?", new String[]{personId}, null, null, null);
+		System.out.println(cursor == null);
 		if(cursor.moveToFirst()){
 			do{
 				ExerciseInfo exerciseInfo = new ExerciseInfo();
@@ -54,7 +57,7 @@ public class DouDouKuPaoDB {
 				exerciseInfo.setYear(cursor.getInt(cursor.getColumnIndex("date_year")));
 				exerciseInfo.setMonthOfYear(cursor.getInt(cursor.getColumnIndex("date_month")));
 				exerciseInfo.setDayOfMonth(cursor.getInt(cursor.getColumnIndex("date_day")));
-				exerciseInfo.setPersonId(cursor.getString(cursor.getColumnIndex("personId")));
+				exerciseInfo.setPersonId(personId);
 				exerciseInfo.setCount(cursor.getInt(cursor.getColumnIndex("counter")));
 				list.add(exerciseInfo);
 			} while(cursor.moveToNext());

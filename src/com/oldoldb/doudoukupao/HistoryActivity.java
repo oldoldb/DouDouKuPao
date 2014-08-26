@@ -21,12 +21,14 @@ public class HistoryActivity extends Activity {
 	private static final String[] MCOLOR_STRINGS = new String[]{"#83a6d5",
 		"#f37db2","#edecee","#8fc640",
 		"#648bbf","#e3b314","#a38989"};
+	String mPersonId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.history_view);
 		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
+		mPersonId = getIntent().getStringExtra("personId");
 		final WebView historyWebView = (WebView)findViewById(R.id.webView_history);
 		historyWebView.getSettings().setJavaScriptEnabled(true);
 		historyWebView.getSettings().setUseWideViewPort(true);
@@ -52,7 +54,7 @@ public class HistoryActivity extends Activity {
 	private String getShowData()
 	{
 		try {
-			List<ExerciseInfo> exerciseInfos = mDouDouKuPaoDB.loadExerciseInfos();
+			List<ExerciseInfo> exerciseInfos = mDouDouKuPaoDB.loadExerciseInfos(mPersonId);
 			int size = exerciseInfos.size();
 			int start = size > 7 ? size - 7 : 0;
 			int end = size;

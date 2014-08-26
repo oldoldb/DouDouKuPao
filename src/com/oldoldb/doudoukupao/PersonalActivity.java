@@ -10,13 +10,14 @@ import com.example.doudoukupao.R;
 
 public class PersonalActivity extends Activity {
 
-	private int mPersonId;
+	private String mPersonId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal);
-		mPersonId = getIntent().getIntExtra("person", R.id.button_father);
+		mPersonId = getIntent().getStringExtra("personId");
+		System.out.println("mPersonId in PersonalActivity : " + mPersonId);
 		Button addInfoButton = (Button) findViewById(R.id.button_addInfo);
 		Button viewHistoryButton = (Button) findViewById(R.id.button_viewHistory);
 		addInfoButton.setOnClickListener(mOnClickListener);
@@ -30,7 +31,7 @@ public class PersonalActivity extends Activity {
 			switch (v.getId()) {
 			case R.id.button_addInfo:
 				Intent intent = new Intent(PersonalActivity.this, InfoEntryActivity.class);
-				intent.putExtra("presonId", mPersonId);
+				intent.putExtra("personId", mPersonId);
 				startActivity(intent);
 				break;
 			case R.id.button_viewHistory:

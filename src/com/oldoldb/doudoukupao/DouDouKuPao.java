@@ -28,7 +28,7 @@ public class DouDouKuPao extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(DouDouKuPao.this, PersonalActivity.class);
-			intent.putExtra("personId", v.getId());
+			intent.putExtra("personId", v.getId()==R.id.button_father?"father":"mother");
 			startActivity(intent);
 		}
 	};
