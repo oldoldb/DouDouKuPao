@@ -20,4 +20,11 @@
 	<string name="main_best_counter">最好成绩</string>
 	<string name="main_best_date">纪录时间</string>
 	<string name="main_default_counter">0步</string>
+	<string name="welcomeViewPager_name">WelcomeViewPager</string>
+	<string name="welcomeActivity_name">WelcomeActivity</string>
+	<string name="button_go">进入豆豆酷跑</string>
+	<string name="viewpage1_text"></string>
+	<string name="viewpage2_text"></string>
+	<string name="viewpage3_text"></string>
+	<string name="viewpage4_text"></string>
 </resources>

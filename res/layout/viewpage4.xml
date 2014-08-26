@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page4"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/viewpage_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewpage4_text"
+        android:paddingTop="500dp" />
+    <Button 
+        android:id="@+id/start_btn"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/button_go"
+        android:background="#00000000"
+        style="@style/viewpage_text"/>
+
+</LinearLayout>

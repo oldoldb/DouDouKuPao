@@ -35,7 +35,7 @@ public class DouDouKuPao extends Activity {
 		Pair<String, Integer> topDataOfMotherPair = douDouKuPaoDB.getRowWithMaxValue("mother");
 		if(topDataOfFatherPair != null)
 		{
-			fatherCounterTextView.setText(topDataOfFatherPair.second.toString());
+			fatherCounterTextView.setText(topDataOfFatherPair.second.toString() + "步");
 			fatherDateTextView.setText(topDataOfFatherPair.first);
 		}
 		else
@@ -48,7 +48,7 @@ public class DouDouKuPao extends Activity {
 		}
 		if(topDataOfMotherPair != null)
 		{
-			motherCounterTextView.setText(topDataOfMotherPair.second.toString());
+			motherCounterTextView.setText(topDataOfMotherPair.second.toString() + "步");
 			motherDataTextView.setText(topDataOfMotherPair.first);
 		}
 		else 
