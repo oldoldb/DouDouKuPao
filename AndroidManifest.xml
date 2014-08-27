@@ -13,8 +13,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.oldoldb.doudoukupao.WelcomeActivity"
-            android:label="@string/app_name" >
+            android:name="com.oldoldb.activity.WelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,24 +23,29 @@
             </intent-filter>
         </activity>
          <activity 
-            android:name="com.oldoldb.doudoukupao.DouDouKuPao"
-            android:label="@string/douDouKuPao_name" >         
+            android:name="com.oldoldb.activity.DouDouKuPao"
+            android:label="@string/douDouKuPao_name"
+            android:screenOrientation="portrait" >         
         </activity>
          <activity 
-            android:name="com.oldoldb.doudoukupao.WelcomeViewPager"
-            android:label="@string/welcomeViewPager_name" >         
+            android:name="com.oldoldb.activity.WelcomeViewPager"
+            android:label="@string/welcomeViewPager_name"
+            android:screenOrientation="portrait" >         
         </activity>
         <activity 
-            android:name="com.oldoldb.doudoukupao.PersonalActivity"
-            android:label="@string/personalActivity_name" >         
+            android:name="com.oldoldb.activity.PersonalActivity"
+            android:label="@string/personalActivity_name"
+            android:screenOrientation="portrait" >         
         </activity>
         <activity 
-            android:name="com.oldoldb.doudoukupao.InfoEntryActivity"
-            android:label="@string/infoEntryActivity_name" >         
+            android:name="com.oldoldb.activity.InfoEntryActivity"
+            android:label="@string/infoEntryActivity_name"
+            android:screenOrientation="portrait" >         
         </activity>
         <activity 
-            android:name="com.oldoldb.doudoukupao.HistoryActivity"
-            android:label="@string/historyActivity_name" >         
+            android:name="com.oldoldb.activity.HistoryActivity"
+            android:label="@string/historyActivity_name"
+            android:screenOrientation="portrait" >         
         </activity>
     </application>
 
