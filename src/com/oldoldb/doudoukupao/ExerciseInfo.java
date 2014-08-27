@@ -51,7 +51,7 @@ public class ExerciseInfo {
 	{
 		Calendar calendar = Calendar.getInstance();
 		year = calendar.get(Calendar.YEAR);
-		monthOfYear = calendar.get(Calendar.MONTH) + 1;
+		monthOfYear = calendar.get(Calendar.MONTH);
 		dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 		personId = "father";
 		count = 0;
@@ -60,7 +60,7 @@ public class ExerciseInfo {
 	public ExerciseInfo(int year, int monthOfYear, int dayOfMonth, int count, String personId)
 	{
 		this.year = year;
-		this.monthOfYear = monthOfYear + 1;
+		this.monthOfYear = monthOfYear;
 		this.dayOfMonth = dayOfMonth;
 		this.personId = personId;
 		this.count = count;

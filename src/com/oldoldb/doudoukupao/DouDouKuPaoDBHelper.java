@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 public class DouDouKuPaoDBHelper extends SQLiteOpenHelper {
 
-	/**
-	 *  Create table for Province
-	 */
 	public static final String CREATE_COUNTER_INFO = "create table CounterInfo ("
 			+ "id integer primary key autoincrement, "
 			+ "date_year integer, "

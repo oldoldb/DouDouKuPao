@@ -8,6 +8,8 @@ import java.util.List;
 
 
 
+
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,6 +19,8 @@ import android.util.Pair;
 public class DouDouKuPaoDB {
 
 	public static final String DB_NAME = "doudou_kupao_db";
+	
+	public static final String TABLE_NAME = "CounterInfo";
 
 	public static final int VERSION = 1;
 	private static DouDouKuPaoDB douDouKuPaoDB;
@@ -35,9 +39,46 @@ public class DouDouKuPaoDB {
 		}
 		return douDouKuPaoDB;
 	}
+	
+	public void updateExerciseInfo(ExerciseInfo exerciseInfo)
+	{
+		if(exerciseInfo != null)
+		{
+			int year = exerciseInfo.getYear();
+			int month = exerciseInfo.getMonthOfYear();
+			int day = exerciseInfo.getDayOfMonth();
+			String personId = exerciseInfo.getPersonId();
+			Cursor cursor = db.query(TABLE_NAME, null, "personId = ? and date_year = ? and date_month = ? and date_day = ?", new String[]{personId, String.valueOf(year), String.valueOf(month), String.valueOf(day)}, null, null, null);
+			if(cursor.moveToFirst())
+			{
+				int prevCounter = cursor.getInt(cursor.getColumnIndex("counter"));
+				modifyExerciseInfo(exerciseInfo, prevCounter);
+			}
+			else
+			{
+				addExerciseInfo(exerciseInfo);
+			}
+		}
+	}
 
-	public void saveExerciseInfo(ExerciseInfo exerciseInfo){
-		if(exerciseInfo != null){
+	public void modifyExerciseInfo(ExerciseInfo exerciseInfo, int prevCounter)
+	{
+		int year = exerciseInfo.getYear();
+		int month = exerciseInfo.getMonthOfYear();
+		int day = exerciseInfo.getDayOfMonth();
+		String personId = exerciseInfo.getPersonId();
+		int counter = exerciseInfo.getCount() + prevCounter;
+		ContentValues values = new ContentValues();
+		values.put("date_year", year);
+		values.put("date_month", month);
+		values.put("date_day", day);
+		values.put("personId", personId);
+		values.put("counter", counter);
+		db.update(TABLE_NAME, values, "date_year = ? and date_month = ? and date_day = ? and personId = ?", new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(day), personId});
+	}
+	public void addExerciseInfo(ExerciseInfo exerciseInfo){
+		if(exerciseInfo != null)
+		{
 			ContentValues values = new ContentValues();
 			values.put("date_year", exerciseInfo.getYear());
 			values.put("date_month", exerciseInfo.getMonthOfYear());
@@ -50,9 +91,10 @@ public class DouDouKuPaoDB {
 	public List<ExerciseInfo> loadExerciseInfos(String personId){
 		List<ExerciseInfo> list = new ArrayList<ExerciseInfo>();
 		System.out.println("personid : " + personId);
-		Cursor cursor = db.query("CounterInfo", null, "personId = ?", new String[]{personId}, null, null, null);
+		Cursor cursor = db.query(TABLE_NAME, null, "personId = ?", new String[]{personId}, null, null, null);
 		System.out.println(cursor == null);
-		if(cursor.moveToFirst()){
+		if(cursor.moveToFirst())
+		{
 			do{
 				ExerciseInfo exerciseInfo = new ExerciseInfo();
 				exerciseInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -69,7 +111,7 @@ public class DouDouKuPaoDB {
 	
 	public Pair<String, Integer> getRowWithMaxValue(String personId)
 	{
-		Cursor cursor = db.query("CounterInfo", null, "personId = ?", new String[]{personId}, null, null, "counter desc");
+		Cursor cursor = db.query(TABLE_NAME, null, "personId = ?", new String[]{personId}, null, null, "counter desc");
 		if(cursor.moveToFirst())
 		{
 			int year = cursor.getInt(cursor.getColumnIndex("date_year"));
