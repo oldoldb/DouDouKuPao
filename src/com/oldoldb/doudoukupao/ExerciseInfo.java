@@ -23,7 +23,7 @@ public class ExerciseInfo {
 		return monthOfYear;
 	}
 	public void setMonthOfYear(int monthOfYear) {
-		this.monthOfYear = monthOfYear + 1;
+		this.monthOfYear = monthOfYear;
 	}
 	private int dayOfMonth;
 	public int getDayOfMonth() {

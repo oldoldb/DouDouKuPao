@@ -23,6 +23,13 @@ public class InfoEntryActivity extends Activity {
 	private int mCounter[] = new int[5];
 	ExerciseInfo mExerciseInfo = new ExerciseInfo();
 	private DouDouKuPaoDB mDouDouKuPaoDB;
+	private boolean mHasChangeDate;
+	public boolean ismHasChangeDate() {
+		return mHasChangeDate;
+	}
+	public void setmHasChangeDate(boolean mHasChangeDate) {
+		this.mHasChangeDate = mHasChangeDate;
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -30,7 +37,6 @@ public class InfoEntryActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.info_entry);
 		mPersonId = getIntent().getStringExtra("personId");
-		System.out.println("mPersonId in InfoEntry : " + mPersonId);
 		mExerciseInfo.setPersonId(mPersonId);
 		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
 		DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker_date);
@@ -47,6 +53,7 @@ public class InfoEntryActivity extends Activity {
 				mExerciseInfo.setYear(year);
 				mExerciseInfo.setMonthOfYear(monthOfYear);
 				mExerciseInfo.setDayOfMonth(dayOfMonth);
+				setmHasChangeDate(true);
 			}
 		});
 		
@@ -82,10 +89,13 @@ public class InfoEntryActivity extends Activity {
 					sum = sum * 10 + mCounter[i];
 				}
 				mExerciseInfo.setCount(sum);
+				if(!ismHasChangeDate())
+				{
+					mExerciseInfo.setMonthOfYear(mExerciseInfo.getMonthOfYear()-1);
+				}
 				mDouDouKuPaoDB.saveExerciseInfo(mExerciseInfo);
 				Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
 				intent.putExtra("personId", mPersonId);
-				System.out.println(mExerciseInfo.toString());
 				startActivity(intent);
 			}
 		});

@@ -70,7 +70,7 @@ public class HistoryActivity extends Activity {
 			{
 				JSONObject jsonObject = new JSONObject();
 				ExerciseInfo exerciseInfo = exerciseInfos.get(i);
-				String str = exerciseInfo.getMonthOfYear() + "-" + exerciseInfo.getDayOfMonth();
+				String str = exerciseInfo.getMonthOfYear() + 1 + "-" + exerciseInfo.getDayOfMonth();
 				jsonObject.put("name", str);
 				jsonObject.put("value", exerciseInfo.getCount());
 				jsonObject.put("color", MCOLOR_STRINGS[i-start]);
