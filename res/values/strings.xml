@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">豆豆酷跑</string>
+    <string name="douDouKuPao_name">DouDouKuPao</string>
     <string name="main_button_father">爸爸</string>
     <string name="main_button_mother">妈妈</string>
     <string name="personalActivity_name">PersonalActivity</string>

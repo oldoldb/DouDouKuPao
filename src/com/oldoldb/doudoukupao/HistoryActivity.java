@@ -1,6 +1,5 @@
 package com.oldoldb.doudoukupao;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,25 +18,45 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import com.example.doudoukupao.R;
+import com.oldoldb.db.DouDouKuPaoDB;
+import com.oldoldb.model.ExerciseInfo;
+import com.oldoldb.util.DouDouKuPaoUtil;
 
 public class HistoryActivity extends Activity {
 
 	private static final String TAG = "HistoryActivity";
-	private DouDouKuPaoDB mDouDouKuPaoDB;
+	private static final String URL_CHART = "file:///android_asset/barChart.html";
 	private static final String[] MCOLOR_STRINGS = new String[]{"#83a6d5",
 		"#f37db2","#edecee","#8fc640",
 		"#648bbf","#e3b314","#a38989"};
-	String mPersonId;
+	
+	private DouDouKuPaoDB mDouDouKuPaoDB;
+	private String mPersonId;
 	 
-	@SuppressLint("SetJavaScriptEnabled") 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.history_view);
+		init();		
+	}
+	@SuppressLint("SetJavaScriptEnabled") 
+	private void init()
+	{
 		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
 		mPersonId = getIntent().getStringExtra("personId");
+		Button backButton = (Button)findViewById(R.id.button_back);
+		backButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				DouDouKuPaoUtil.startActivity(HistoryActivity.this, PersonalActivity.class, mPersonId);
+				finish();
+			}
+		});
+		
 		final WebView historyWebView = (WebView)findViewById(R.id.webView_history);
 		historyWebView.addJavascriptInterface(this, TAG);
 		historyWebView.getSettings().setJavaScriptEnabled(true);
@@ -47,21 +65,10 @@ public class HistoryActivity extends Activity {
 		historyWebView.getSettings().setBuiltInZoomControls(true);
 		historyWebView.getSettings().setLoadWithOverviewMode(true);
 		historyWebView.requestFocus();
-		historyWebView.loadUrl("file:///android_asset/barChart.html");
-		Button backButton = (Button)findViewById(R.id.button_back);
-		backButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(HistoryActivity.this, PersonalActivity.class);
-				intent.putExtra("personId", mPersonId);
-				startActivity(intent);
-				finish();
-			}
-		});
+		historyWebView.loadUrl(URL_CHART);
 		
 	}
+	@SuppressWarnings("unchecked")
 	@JavascriptInterface
 	public String getShowData()
 	{
@@ -76,11 +83,7 @@ public class HistoryActivity extends Activity {
 			{
 				JSONObject jsonObject = new JSONObject();
 				ExerciseInfo exerciseInfo = exerciseInfos.get(i);
-				Calendar calendar1 = Calendar.getInstance();
-				calendar1.set(exerciseInfo.getYear(), exerciseInfo.getMonthOfYear(), exerciseInfo.getDayOfMonth());
-				calendar1.add(Calendar.DAY_OF_MONTH, 7);
-				Calendar calendar2 = Calendar.getInstance();
-				if(calendar1.before(calendar2))
+				if(DouDouKuPaoUtil.isBeforeToday(exerciseInfo, 7))
 				{
 					continue;
 				}

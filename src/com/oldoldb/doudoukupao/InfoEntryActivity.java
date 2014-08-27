@@ -1,15 +1,11 @@
 package com.oldoldb.doudoukupao;
 
-import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,6 +15,9 @@ import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 
 import com.example.doudoukupao.R;
+import com.oldoldb.db.DouDouKuPaoDB;
+import com.oldoldb.model.ExerciseInfo;
+import com.oldoldb.util.DouDouKuPaoUtil;
 
 public class InfoEntryActivity extends Activity {
 	
@@ -34,14 +33,22 @@ public class InfoEntryActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.info_entry);
+		init();
+	}
+	private void init()
+	{
+		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
 		mPersonId = getIntent().getStringExtra("personId");
 		mExerciseInfo.setPersonId(mPersonId);
-		mDouDouKuPaoDB = DouDouKuPaoDB.getInstance(this);
+		ImageButton okButton = (ImageButton)findViewById(R.id.button_ok);
+		Button backButton = (Button)findViewById(R.id.button_back);
+		okButton.setOnClickListener(mOnClickListener);
+		backButton.setOnClickListener(mOnClickListener);
+		
 		DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker_date);
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int monthOfYear = calendar.get(Calendar.MONTH);
-		int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+		int year = DouDouKuPaoUtil.getNowYear();
+		int monthOfYear = DouDouKuPaoUtil.getNowMonthOfYear();
+		int dayOfMonth = DouDouKuPaoUtil.getNowDayOfMonth();
 		datePicker.init(year, monthOfYear, dayOfMonth, new OnDateChangedListener() {
 			
 			@Override
@@ -53,71 +60,67 @@ public class InfoEntryActivity extends Activity {
 				mExerciseInfo.setDayOfMonth(dayOfMonth);
 			}
 		});
+		NumberPicker numberPicker[] = new NumberPicker[5];
+		numberPicker[4] = (NumberPicker)findViewById(R.id.numberPicker_counter4);
+		numberPicker[3] = (NumberPicker)findViewById(R.id.numberPicker_counter3);
+		numberPicker[2] = (NumberPicker)findViewById(R.id.numberPicker_counter2);
+		numberPicker[1] = (NumberPicker)findViewById(R.id.numberPicker_counter1);
+		numberPicker[0] = (NumberPicker)findViewById(R.id.numberPicker_counter0);
+		for(int i=0;i<5;i++)
+		{
+			numberPicker[i].setMinValue(0);
+			numberPicker[i].setMaxValue(9);
+			numberPicker[i].setOnValueChangedListener(new OnValueChangeListener() {
+				
+				@Override
+				public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+					// TODO Auto-generated method stub
+					int index = Integer.parseInt(picker.getTag().toString());
+					mCounter[index] = newVal;
+				}
+			});
+		}	
+	}
+	
+	View.OnClickListener mOnClickListener = new View.OnClickListener() {
 		
-		NumberPicker numberPicker4 = (NumberPicker)findViewById(R.id.numberPicker_counter4);
-		NumberPicker numberPicker3 = (NumberPicker)findViewById(R.id.numberPicker_counter3);
-		NumberPicker numberPicker2 = (NumberPicker)findViewById(R.id.numberPicker_counter2);
-		NumberPicker numberPicker1 = (NumberPicker)findViewById(R.id.numberPicker_counter1);
-		NumberPicker numberPicker0 = (NumberPicker)findViewById(R.id.numberPicker_counter0);
-		numberPicker0.setMinValue(0);
-		numberPicker0.setMaxValue(9);
-		numberPicker0.setOnValueChangedListener(mOnValueChangeListener);
-		numberPicker1.setMinValue(0);
-		numberPicker1.setMaxValue(9);
-		numberPicker1.setOnValueChangedListener(mOnValueChangeListener);
-		numberPicker2.setMinValue(0);
-		numberPicker2.setMaxValue(9);
-		numberPicker2.setOnValueChangedListener(mOnValueChangeListener);
-		numberPicker3.setMinValue(0);
-		numberPicker3.setMaxValue(9);
-		numberPicker3.setOnValueChangedListener(mOnValueChangeListener);
-		numberPicker4.setMinValue(0);
-		numberPicker4.setMaxValue(9);
-		numberPicker4.setOnValueChangedListener(mOnValueChangeListener);
-		ImageButton okButton = (ImageButton)findViewById(R.id.button_ok);
-		okButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch (v.getId()) {
+			case R.id.button_ok:
 				int sum = 0;
 				for(int i=0;i<5;i++)
 				{
 					sum = sum * 10 + mCounter[i];
 				}
 				mExerciseInfo.setCount(sum);
-				Calendar calendar1 =Calendar.getInstance();
-				Calendar calendar2 = Calendar.getInstance();
-				calendar2.set(mExerciseInfo.getYear(), mExerciseInfo.getMonthOfYear(), mExerciseInfo.getDayOfMonth());
 				if(mDouDouKuPaoDB.isExistSameDayData(mExerciseInfo))
 				{
 					showWarningDialog();
 				}
-				else if(calendar2.after(calendar1))
+				else if(DouDouKuPaoUtil.isAfterToday(mExerciseInfo))
 				{
 					showErrorDialog();
 				}
 				else 
 				{
-					mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
-					Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
-					intent.putExtra("personId", mPersonId);
-					startActivity(intent);
+					finishInputData();
 				}
-			}
-		});
-		Button backButton = (Button)findViewById(R.id.button_back);
-		backButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(InfoEntryActivity.this, PersonalActivity.class);
-				intent.putExtra("personId", mPersonId);
-				startActivity(intent);
+				break;
+			case R.id.button_back:
+				DouDouKuPaoUtil.startActivity(InfoEntryActivity.this, PersonalActivity.class, mPersonId);
 				finish();
+				break;
+			default:
+				break;
 			}
-		});
+		}
+	};
+	private void finishInputData()
+	{
+		mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
+		DouDouKuPaoUtil.startActivity(InfoEntryActivity.this, HistoryActivity.class, mPersonId);
 	}
 	private void showWarningDialog()
 	{
@@ -129,10 +132,7 @@ public class InfoEntryActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
-				Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
-				intent.putExtra("personId", mPersonId);
-				startActivity(intent);
+				finishInputData();
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -160,14 +160,5 @@ public class InfoEntryActivity extends Activity {
 		});
 		builder.create().show();
 	}
-	OnValueChangeListener mOnValueChangeListener = new OnValueChangeListener() {
-		
-		@Override
-		public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-			// TODO Auto-generated method stub
-			int index = Integer.parseInt(picker.getTag().toString());
-			mCounter[index] = newVal;
-		}
-	};
 
 }

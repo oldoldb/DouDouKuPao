@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.doudoukupao.R;
+import com.oldoldb.util.DouDouKuPaoUtil;
 
 public class WelcomeViewPager extends Activity {
 	private ViewPager mViewPager;
@@ -32,6 +32,10 @@ public class WelcomeViewPager extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		init();
+	}
+	private void init()
+	{
 		LayoutInflater inflater = getLayoutInflater();
 		mPageViews = new ArrayList<View>();
 		mPageViews.add(inflater.inflate(R.layout.viewpage1, null));
@@ -68,8 +72,7 @@ public class WelcomeViewPager extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(WelcomeViewPager.this, DouDouKuPao.class);
-				startActivity(intent);
+				DouDouKuPaoUtil.startActivity(WelcomeViewPager.this, DouDouKuPao.class, "");
 				finish();
 			}
 		});

@@ -1,12 +1,12 @@
 package com.oldoldb.doudoukupao;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
 import com.example.doudoukupao.R;
+import com.oldoldb.util.DouDouKuPaoUtil;
 
 public class WelcomeActivity extends Activity {
 
@@ -22,8 +22,7 @@ public class WelcomeActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(WelcomeActivity.this, WelcomeViewPager.class);
-				startActivity(intent);
+				DouDouKuPaoUtil.startActivity(WelcomeActivity.this, WelcomeViewPager.class, "");
 				finish();
 			}
 		}, DELAY_TIME);
