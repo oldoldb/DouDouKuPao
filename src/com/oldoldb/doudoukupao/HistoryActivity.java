@@ -1,9 +1,13 @@
 package com.oldoldb.doudoukupao;
 
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +18,7 @@ import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Button;
+
 import com.example.doudoukupao.R;
 
 public class HistoryActivity extends Activity {
@@ -62,14 +67,23 @@ public class HistoryActivity extends Activity {
 	{
 		try {
 			List<ExerciseInfo> exerciseInfos = mDouDouKuPaoDB.loadExerciseInfos(mPersonId);
+			Collections.sort(exerciseInfos);
 			int size = exerciseInfos.size();
-			int start = size > 7 ? size - 7 : 0;
-			int end = size;
+			int start = 0;
+			int end = size > 7? 7 : size;
 			JSONArray jsonArray = new JSONArray();
-			for(int i=start;i<end;i++)
+			for(int i=end-1;i>=0;i--)
 			{
 				JSONObject jsonObject = new JSONObject();
 				ExerciseInfo exerciseInfo = exerciseInfos.get(i);
+				Calendar calendar1 = Calendar.getInstance();
+				calendar1.set(exerciseInfo.getYear(), exerciseInfo.getMonthOfYear(), exerciseInfo.getDayOfMonth());
+				calendar1.add(Calendar.DAY_OF_MONTH, 7);
+				Calendar calendar2 = Calendar.getInstance();
+				if(calendar1.before(calendar2))
+				{
+					continue;
+				}
 				String str = exerciseInfo.getMonthOfYear() + 1 + "-" + exerciseInfo.getDayOfMonth();
 				jsonObject.put("name", str);
 				jsonObject.put("value", exerciseInfo.getCount());
@@ -84,4 +98,5 @@ public class HistoryActivity extends Activity {
 		return null;
 	}
 
+	
 }

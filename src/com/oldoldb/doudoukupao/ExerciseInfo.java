@@ -3,7 +3,7 @@ package com.oldoldb.doudoukupao;
 import java.util.Calendar;
 
 
-public class ExerciseInfo {
+public class ExerciseInfo implements Comparable{
 	private int id;
 	public int getId() {
 		return id;
@@ -69,6 +69,27 @@ public class ExerciseInfo {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return year + "y" + monthOfYear + "m" + dayOfMonth + "d" + personId + count;
+	}
+	@Override
+	public int compareTo(Object another) {
+		// TODO Auto-generated method stub
+		ExerciseInfo exerciseInfo2 = (ExerciseInfo)another;
+		Calendar calendar1 = Calendar.getInstance();
+		calendar1.set(this.year, this.monthOfYear, this.dayOfMonth);
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.set(exerciseInfo2.getYear(), exerciseInfo2.getMonthOfYear(), exerciseInfo2.getDayOfMonth());
+		if(calendar1.before(calendar2))
+		{
+			return 1;
+		}
+		else if(calendar1.equals(calendar2))
+		{
+			return 0;
+		}
+		else 
+		{
+			return -1;
+		}
 	}
 	
 	

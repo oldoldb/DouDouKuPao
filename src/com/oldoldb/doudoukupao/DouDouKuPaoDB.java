@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -38,6 +39,23 @@ public class DouDouKuPaoDB {
 			douDouKuPaoDB = new DouDouKuPaoDB(context);
 		}
 		return douDouKuPaoDB;
+	}
+	
+	public boolean isExistSameDayData(ExerciseInfo exerciseInfo)
+	{
+		if(exerciseInfo != null)
+		{
+			int year = exerciseInfo.getYear();
+			int month =exerciseInfo.getMonthOfYear();
+			int day = exerciseInfo.getDayOfMonth();
+			String personId = exerciseInfo.getPersonId();
+			Cursor cursor = db.query(TABLE_NAME, null, "personId = ? and date_year = ? and date_month = ? and date_day = ?", new String[]{personId, String.valueOf(year), String.valueOf(month), String.valueOf(day)}, null, null, null);
+			if(cursor.moveToFirst())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void updateExerciseInfo(ExerciseInfo exerciseInfo)

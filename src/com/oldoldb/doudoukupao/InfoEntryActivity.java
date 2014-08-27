@@ -3,6 +3,9 @@ package com.oldoldb.doudoukupao;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +22,8 @@ import com.example.doudoukupao.R;
 
 public class InfoEntryActivity extends Activity {
 	
+	private static final String WARNING_STRING = "同一天的暴走记录会累加哦!";
+	private static final String ERROR_STRING = "日期超过今天了哦!";
 	private String mPersonId;
 	private int mCounter[] = new int[5];
 	ExerciseInfo mExerciseInfo = new ExerciseInfo();
@@ -81,10 +86,24 @@ public class InfoEntryActivity extends Activity {
 					sum = sum * 10 + mCounter[i];
 				}
 				mExerciseInfo.setCount(sum);
-				mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
-				Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
-				intent.putExtra("personId", mPersonId);
-				startActivity(intent);
+				Calendar calendar1 =Calendar.getInstance();
+				Calendar calendar2 = Calendar.getInstance();
+				calendar2.set(mExerciseInfo.getYear(), mExerciseInfo.getMonthOfYear(), mExerciseInfo.getDayOfMonth());
+				if(mDouDouKuPaoDB.isExistSameDayData(mExerciseInfo))
+				{
+					showWarningDialog();
+				}
+				else if(calendar2.after(calendar1))
+				{
+					showErrorDialog();
+				}
+				else 
+				{
+					mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
+					Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
+					intent.putExtra("personId", mPersonId);
+					startActivity(intent);
+				}
 			}
 		});
 		Button backButton = (Button)findViewById(R.id.button_back);
@@ -99,6 +118,47 @@ public class InfoEntryActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	private void showWarningDialog()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(WARNING_STRING);
+		builder.setCancelable(false);
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				mDouDouKuPaoDB.updateExerciseInfo(mExerciseInfo);
+				Intent intent = new Intent(InfoEntryActivity.this, HistoryActivity.class);
+				intent.putExtra("personId", mPersonId);
+				startActivity(intent);
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		});
+		builder.create().show();
+	}
+	private void showErrorDialog()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(ERROR_STRING);
+		builder.setCancelable(true);
+		builder.setNegativeButton("我知道了", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		});
+		builder.create().show();
 	}
 	OnValueChangeListener mOnValueChangeListener = new OnValueChangeListener() {
 		
